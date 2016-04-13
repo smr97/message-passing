@@ -18,10 +18,18 @@ mqd_t createQ()
     return m;
 }
 
-void *
+void *t1(void *arg)
+{
+	mqd_t q1 = createQ();
+	if(mq_send(q1, "Thread 1 says hi", 16, 0))
+	perror("mq_send()");
+}
 
 int main()
 {
+    pthread_create(&t1, 0, t1, NULL);
+    pthread_create(&t2, 0, t2, NULL);
+    
     
     
     
